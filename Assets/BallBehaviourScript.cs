@@ -8,6 +8,11 @@ public class BallBehaviourScript : MonoBehaviour
     public float stopSpeed = 1;
     public Transform heading;
     private Rigidbody rb;
+    
+    private float elapsedTime;
+    public float hitTime = 1;
+    private float start, end;
+    private float t;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +24,18 @@ public class BallBehaviourScript : MonoBehaviour
     void Update()
     {
         if (rb.velocity.magnitude > stopSpeed) return;
+
+        if (Input.GetMouseButtonDown(0))
+        { 
+            elapsedTime = 0;
+            start = 0;
+            end   = 1;
+        }
+
+        if (Input.GetMouseButton(0))
+        { 
+            t = Mathf.Lerp(start, end, elapsedTime / hitTime);
+        }
 
         if (Input.GetMouseButtonUp(0)) Hit(appliedForce);
     }

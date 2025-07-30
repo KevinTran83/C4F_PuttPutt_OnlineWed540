@@ -17,9 +17,10 @@ public class Boom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        target.Rotate(0,
-                      Input.GetAxis("Mouse X") * turnSpeed * Time.deltaTime,
-                      0
-                     );
+        transform.Rotate(0,
+                         Input.GetAxis("Mouse X") * turnSpeed * Time.deltaTime,
+                         0
+                        );
+        transform.position = target.position;
     }
 }
