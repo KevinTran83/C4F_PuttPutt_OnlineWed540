@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BallBehaviourScript : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class BallBehaviourScript : MonoBehaviour
     public float hitTime = 1;
     private float start, end;
     private float t;
+
+    public Slider slider;
 
     // Start is called before the first frame update
     void Start()
@@ -35,9 +38,18 @@ public class BallBehaviourScript : MonoBehaviour
         if (Input.GetMouseButton(0))
         { 
             t = Mathf.Lerp(start, end, elapsedTime / hitTime);
+            elapsedTime += Time.deltaTime;
+            if (elapsedTime > hitTime)
+            {
+                elapsedTime = 0;
+                float temp = start;
+                start = end;
+                end   = temp;
+            }
+            slider.value = t;
         }
 
-        if (Input.GetMouseButtonUp(0)) Hit(appliedForce);
+        if (Input.GetMouseButtonUp(0)) Hit(appliedForce * t);
     }
 
     public void Hit(float force)
