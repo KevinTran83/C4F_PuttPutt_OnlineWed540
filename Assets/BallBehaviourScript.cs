@@ -17,15 +17,20 @@ public class BallBehaviourScript : MonoBehaviour
 
     public Slider slider;
 
+    private Vector3 spawnPos;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        spawnPos = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.R)) Respawn();
+
         if (rb.velocity.magnitude > stopSpeed) return;
 
         if (Input.GetMouseButtonDown(0))
@@ -56,5 +61,13 @@ public class BallBehaviourScript : MonoBehaviour
     {
         Vector3 dir = heading.forward;
         rb.AddForce(dir * force);
+    }
+
+    public void Respawn()
+    {
+        transform.position = spawnPos;
+        rb.velocity        = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        transform.rotation = Quaternion.identity;
     }
 }
