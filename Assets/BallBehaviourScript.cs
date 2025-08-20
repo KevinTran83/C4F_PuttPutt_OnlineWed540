@@ -19,11 +19,14 @@ public class BallBehaviourScript : MonoBehaviour
 
     private Vector3 spawnPos;
 
+    public int hits;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         spawnPos = transform.position;
+        hits = 0;
     }
 
     // Update is called once per frame
@@ -61,6 +64,7 @@ public class BallBehaviourScript : MonoBehaviour
     {
         Vector3 dir = heading.forward;
         rb.AddForce(dir * force);
+        hits++;
     }
 
     public void Respawn()
